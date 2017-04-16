@@ -183,6 +183,19 @@ func updateHandler(ctx cli.Context) {
 	checkErr(err)
 }
 
+func setInfoHandler(ctx cli.Context) {
+	args := ctx.Args()
+	err := newDrive(args).SetInfo(drive.SetInfoArgs{
+		Out:         os.Stdout,
+		Id:          args.String("fileId"),
+		Name:        args.String("name"),
+		Description: args.String("description"),
+		Parents:     args.StringSlice("parent"),
+		Mime:        args.String("mime"),
+	})
+	checkErr(err)
+}
+
 func infoHandler(ctx cli.Context) {
 	args := ctx.Args()
 	err := newDrive(args).Info(drive.FileInfoArgs{

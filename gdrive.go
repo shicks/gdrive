@@ -359,6 +359,36 @@ func main() {
 			},
 		},
 		&cli.Handler{
+			Pattern:     "[global] info set [options] <fileId>",
+			Description: "Update file information",
+			Callback:    setInfoHandler,
+			FlagGroups: cli.FlagGroups{
+				cli.NewFlagGroup("global", globalFlags...),
+				cli.NewFlagGroup("options",
+					cli.StringSliceFlag{
+						Name:        "parent",
+						Patterns:    []string{"-p", "--parent"},
+						Description: "Parent id, used to add file to a specific directory, can be specified multiple times to give many parents",
+					},
+					cli.StringFlag{
+						Name:        "name",
+						Patterns:    []string{"--name"},
+						Description: "Filename",
+					},
+					cli.StringFlag{
+						Name:        "description",
+						Patterns:    []string{"--description"},
+						Description: "File description",
+					},
+					cli.StringFlag{
+						Name:        "mime",
+						Patterns:    []string{"--mime"},
+						Description: "Force mime type",
+					},
+				),
+			},
+		},
+		&cli.Handler{
 			Pattern:     "[global] info [options] <fileId>",
 			Description: "Show file info",
 			Callback:    infoHandler,
